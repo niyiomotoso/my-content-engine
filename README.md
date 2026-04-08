@@ -236,7 +236,7 @@ Topic: [Short title of the content]
 - Include scripts that show your unique personality, humor, or phrases
 - 30 is the minimum. 50 is ideal. More than 100 works too.
 
-**If you have your scripts in a spreadsheet:** You can bulk-import them. Create a CSV file with three columns -- `topic`, `script`, `hashtags` -- and place it in the project root as `scripts_master.csv`. Then run:
+**If you have your scripts in a spreadsheet:** You can bulk-import them. Create a CSV file with three columns -- `topic`, `script`, `hashtags` -- and place it in the project root as `scripts_master.csv`. See `scripts_master_sample.csv` in this repo for the exact format with 3 example scripts. Then run:
 
 ```bash
 python3 pipelines/prep_voice_samples.py
