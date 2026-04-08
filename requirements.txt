@@ -1,0 +1,13 @@
+# Core dependencies
+bertopic>=0.16.0
+sentence-transformers>=3.0.0
+chromadb>=0.5.0
+yt-dlp>=2026.1.0
+trendspyg>=1.0.0
+pydantic>=2.0.0
+requests>=2.31.0
+
+# Optional sources (comment out if not needed)
+TikTokApi>=7.2.0
+instaloader>=4.15
+facebook-pages-scraper>=1.0.0

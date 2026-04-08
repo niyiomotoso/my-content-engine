@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Generated data (regenerated on each run)
+data/*.json
+!data/.gitkeep
+
+# Generated outputs (personal to each creator)
+outputs/**/*.json
+outputs/**/*.md
+!outputs/.gitkeep
+!outputs/custom/.gitkeep
+
+# Voice database (auto-generated from samples)
+voice_db/
+
+# Environment and secrets
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Keep voice samples tracked (your content identity)
+!voice/samples/*.txt
+!voice/samples/.gitkeep
