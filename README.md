@@ -37,7 +37,7 @@ You also get an on-demand mode: paste any topic, article, or idea, and it genera
 | **Claude Code** | `.claude/skills/` | `/skill-name` | `CLAUDE.md` |
 | **OpenAI Codex CLI** | `.agents/skills/` | `$skill-name` | `AGENTS.md` |
 
-This repo includes skill files for **both platforms** -- you only need to install one.
+This repo ships with skills in `.claude/skills/`. If you use **Codex CLI**, see [Platform Setup for Codex Users](#platform-setup-for-codex-users) to rename the folder.
 
 ---
 
@@ -186,6 +186,21 @@ Saved 459 stories to data/raw_hn.json
 
 If that works, your Python environment is ready.
 
+### Run the Interactive Setup Assistant (Recommended)
+
+The easiest way to complete the rest of the setup is to use the built-in setup skill. It walks you through everything interactively -- checking prerequisites, configuring your niche, setting up voice samples, and running your first batch.
+
+Open your AI agent in the project directory and run:
+
+**Claude Code:**
+```bash
+cd my-content-engine
+claude
+```
+Then type: `/my-content-engine`
+
+The assistant will guide you through each step, check what's already done, and help you fix anything that's missing. If you prefer to do it manually, follow the steps below.
+
 ---
 
 ## Customize It: Make It Yours
@@ -220,6 +235,14 @@ Topic: [Short title of the content]
 - Include a mix of content types: tutorials, news reactions, tool reviews, opinion pieces
 - Include scripts that show your unique personality, humor, or phrases
 - 30 is the minimum. 50 is ideal. More than 100 works too.
+
+**If you have your scripts in a spreadsheet:** You can bulk-import them. Create a CSV file with three columns -- `topic`, `script`, `hashtags` -- and place it in the project root as `scripts_master.csv`. Then run:
+
+```bash
+python3 pipelines/prep_voice_samples.py
+```
+
+This parses the CSV and creates individual `.txt` files in `voice/samples/` automatically.
 
 **If you don't have past scripts:** Start with 10-15. Write them the way you naturally talk. Record yourself riffing on topics and transcribe it. The engine gets better as you add more samples over time.
 
@@ -345,6 +368,26 @@ You can also run each step separately if you want more control:
 
 ---
 
+### Platform Setup for Codex Users
+
+If you are using **OpenAI Codex CLI** instead of Claude Code, you need to rename the skills folder so Codex can find it:
+
+**macOS / Linux:**
+```bash
+mkdir -p .agents
+cp -r .claude/skills .agents/skills
+```
+
+**Windows (PowerShell):**
+```powershell
+mkdir .agents
+Copy-Item -Recurse .claude\skills .agents\skills
+```
+
+Codex reads `AGENTS.md` for project instructions (already included). Invoke skills with `$skill-name` instead of `/skill-name`.
+
+---
+
 ## How It Works Under the Hood
 
 ```
@@ -414,24 +457,19 @@ my-content-engine/
 ├── requirements.txt             # Python dependencies
 ├── .gitignore
 │
-├── .claude/                     # Claude Code skills
+├── .claude/                     # Agent skills (Codex users: copy to .agents/)
 │   ├── skills/
-│   │   ├── weekly-batch/SKILL.md
-│   │   ├── write-script/SKILL.md
-│   │   ├── discover-trends/SKILL.md
-│   │   ├── score-topics/SKILL.md
-│   │   ├── extract-angles/SKILL.md
-│   │   ├── generate-scripts/SKILL.md
-│   │   └── build-voice-pack/SKILL.md
+│   │   ├── my-content-engine/SKILL.md   # Interactive setup assistant
+│   │   ├── weekly-batch/SKILL.md        # Full pipeline in one command
+│   │   ├── write-script/SKILL.md        # On-demand script from any topic
+│   │   ├── discover-trends/SKILL.md     # Collect trending data
+│   │   ├── score-topics/SKILL.md        # Cluster and rank topics
+│   │   ├── extract-angles/SKILL.md      # Generate 4 angles per topic
+│   │   ├── generate-scripts/SKILL.md    # Write voice-matched scripts
+│   │   └── build-voice-pack/SKILL.md    # Analyze samples, generate style guide
 │   └── rules/
 │       ├── output-format.md
 │       └── pipeline-rules.md
-│
-├── .agents/                     # Codex CLI skills (same content)
-│   └── skills/
-│       ├── weekly-batch/SKILL.md
-│       ├── write-script/SKILL.md
-│       └── ... (mirrors .claude/skills/)
 │
 ├── pipelines/                   # Python data scripts
 │   ├── ingest_reddit.py         # Scrape Reddit (no API key needed)
